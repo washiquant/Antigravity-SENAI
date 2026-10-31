@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jogo clássico de Jokenpô (Pedra, Papel e Tesoura) feito com HTML, CSS e JavaScript puros.">
+  <title>Jokenpô Clássico</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Cabeçalho Principal -->
+    <header class="header">
+      <h1 class="title">Jokenpô</h1>
+      <p class="subtitle">Pedra, Papel ou Tesoura</p>
+    </header>
+
+    <main class="main-content">
+      <!-- Seletor do Modo de Jogo -->
+      <section class="mode-section" aria-label="Modo de Jogo">
+        <fieldset class="mode-fieldset">
+          <legend class="mode-legend">Escolha o modo de jogo:</legend>
+          <div class="mode-options" id="mode-options">
+            <label class="mode-label">
+              <input type="radio" name="game-mode" value="free" checked>
+              <span>Livre</span>
+            </label>
+            <label class="mode-label">
+              <input type="radio" name="game-mode" value="bestOf3">
+              <span>Melhor de 3</span>
+            </label>
+            <label class="mode-label">
+              <input type="radio" name="game-mode" value="bestOf5">
+              <span>Melhor de 5</span>
+            </label>
+          </div>
+        </fieldset>
+      </section>
+
+      <!-- Painel de Placar -->
+      <section class="scoreboard-section" aria-label="Placar">
+        <div class="scoreboard">
+          <div class="score-card player">
+            <span class="score-label">Você</span>
+            <span class="score-value" id="player-score">0</span>
+          </div>
+          <div class="score-card draw">
+            <span class="score-label">Empates</span>
+            <span class="score-value" id="draws-score">0</span>
+          </div>
+          <div class="score-card computer">
+            <span class="score-label">CPU</span>
+            <span class="score-value" id="computer-score">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Arena de Batalha e Animação -->
+      <section class="battle-section" aria-label="Arena de Batalha">
+        <!-- Região para leitores de tela anunciarem o resultado -->
+        <div id="live-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+        <div class="battle-arena" id="battle-arena">
+          <div class="fighter-side player-side">
+            <span class="fighter-name">Você</span>
+            <div class="hand-display" id="player-hand" aria-hidden="true">✊</div>
+          </div>
+
+          <div class="status-center">
+            <div class="countdown-text" id="countdown-text">Faça sua jogada</div>
+            <div class="round-badge" id="round-badge">Rodada 1</div>
+          </div>
+
+          <div class="fighter-side computer-side">
+            <span class="fighter-name">CPU</span>
+            <div class="hand-display flip" id="computer-hand" aria-hidden="true">✊</div>
+          </div>
+        </div>
+
+        <!-- Banner de Fim de Partida (Melhor de 3/5) -->
+        <div class="match-over-card hidden" id="match-over-card" role="alert">
+          <h2 class="match-over-title" id="match-over-title">Fim de Jogo!</h2>
+          <p class="match-over-desc" id="match-over-desc">Parabéns!</p>
+          <button type="button" class="btn btn-primary" id="btn-play-again">Jogar Novamente</button>
+        </div>
+      </section>
+
+      <!-- Controles de Escolha do Jogador -->
+      <section class="controls-section" aria-label="Escolhas de jogada">
+        <p class="controls-hint">Clique ou use as teclas numéricas [1], [2] ou [3]:</p>
+        <div class="choice-buttons" id="choice-buttons">
+          <button type="button" class="btn-choice" data-choice="pedra" aria-label="Jogar Pedra">
+            <span class="choice-icon" aria-hidden="true">✊</span>
+            <span class="choice-text">Pedra</span>
+            <kbd class="choice-key">1</kbd>
+          </button>
+          <button type="button" class="btn-choice" data-choice="papel" aria-label="Jogar Papel">
+            <span class="choice-icon" aria-hidden="true">✋</span>
+            <span class="choice-text">Papel</span>
+            <kbd class="choice-key">2</kbd>
+          </button>
+          <button type="button" class="btn-choice" data-choice="tesoura" aria-label="Jogar Tesoura">
+            <span class="choice-icon" aria-hidden="true">✌️</span>
+            <span class="choice-text">Tesoura</span>
+            <kbd class="choice-key">3</kbd>
+          </button>
+        </div>
+      </section>
+
+      <!-- Histórico das últimas 5 rodadas -->
+      <section class="history-section" aria-label="Histórico de rodadas">
+        <div class="history-header">
+          <h2 class="history-title">Últimas 5 rodadas</h2>
+          <button type="button" class="btn-text" id="btn-reset">Zerar Placar</button>
+        </div>
+        <ul class="history-list" id="history-list" aria-label="Lista de rodadas anteriores">
+          <li class="history-empty">Nenhuma jogada realizada ainda.</li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+      <p>Desenvolvido em Vanilla HTML, CSS & JavaScript</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
