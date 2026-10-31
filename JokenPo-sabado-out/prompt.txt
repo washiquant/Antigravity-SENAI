@@ -1,0 +1,44 @@
+Atue como um desenvolvedor front-end sênior. Crie um jogo de Jokenpô (Pedra, Papel e Tesoura) completo, usando apenas HTML, CSS e JavaScript puros (vanilla). Não use frameworks, bibliotecas, CDNs nem imagens externas. Para os ícones, use emojis ou SVG inline.
+
+## Estrutura de arquivos
+- index.html
+- style.css
+- script.js
+
+## Regras e funcionalidades
+1. O jogador escolhe Pedra, Papel ou Tesoura clicando em botões. Também deve dar para jogar pelo teclado: teclas 1, 2 e 3.
+2. O computador escolhe ao acaso.
+3. Regras: Pedra vence Tesoura, Tesoura vence Papel e Papel vence Pedra. Escolhas iguais dão empate.
+4. Antes de mostrar o resultado, exiba uma animação de contagem "Jo... Ken... Pô!" de cerca de 1,5 s, com as mãos balançando. Desabilite os botões enquanto ela roda.
+5. Mostre a escolha do jogador, a do computador e o resultado da rodada (Vitória, Derrota ou Empate) com uma mensagem clara.
+6. Mostre um placar com as vitórias do jogador, as vitórias do computador e os empates.
+7. Deixe o jogador escolher o tipo de partida: melhor de 3, melhor de 5 ou partida livre (sem fim). Quando a partida acabar, anuncie quem venceu e mostre um botão "Jogar novamente".
+8. Inclua um botão "Zerar placar".
+9. Mostre o histórico das últimas 5 rodadas.
+10. Salve o placar no localStorage, dentro de try/catch, para que ele continue lá depois de recarregar a página.
+
+## Visual e experiência do usuário
+- Layout responsivo, pensado primeiro para celular, centralizado e funcional de 320px até telas de desktop.
+- Cores definidas em variáveis CSS (custom properties), com tema claro e escuro via prefers-color-scheme.
+- Retorno visual claro: estados de hover e foco visíveis, e cores diferentes para vitória (verde), derrota (vermelho) e empate (neutro).
+- Animações feitas com @keyframes e transition, respeitando prefers-reduced-motion.
+- Botões grandes (pelo menos 44x44px) e tipografia fácil de ler.
+
+## Acessibilidade
+- HTML semântico (header, main, section, button).
+- aria-label em todos os botões de escolha.
+- Uma região aria-live="polite" que anuncia o resultado de cada rodada.
+- Jogo totalmente navegável pelo teclado.
+
+## Qualidade do código
+- Use "use strict" e encapsule o código (IIFE ou módulo ES) para não deixar variáveis globais soltas.
+- Guarde o estado do jogo num único objeto (placar, rodada, modo, histórico).
+- Defina as regras num objeto de mapeamento (ex.: { pedra: 'tesoura', ... }), em vez de uma cadeia de if/else.
+- Escreva funções pequenas e com nomes claros, por exemplo: getComputerChoice, determineWinner, updateScore, renderResult, saveState, loadState, resetGame.
+- Use delegação de eventos sempre que fizer sentido.
+- Escreva comentários curtos, em português, explicando cada bloco.
+
+## Entrega
+- Entregue o código completo dos três arquivos, cada um num bloco separado, prontos para copiar e rodar abrindo o index.html no navegador.
+- No fim, explique em poucas linhas como funciona a lógica que decide o vencedor.
+- Sugira 3 melhorias futuras (por exemplo, a variante Pedra-Papel-Tesoura-Lagarto-Spock e efeitos sonoros com a Web Audio API).
