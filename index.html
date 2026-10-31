@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadro Kanban</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Fonte Google Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Cabeçalho Principal com Navegação -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <h1>Quadro Kanban</h1>
+        <p class="subtitle">Gerenciamento visual com prazos, categorias e colunas flexíveis</p>
+      </div>
+
+      <!-- Navegação Entre Páginas -->
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">📋 Quadro</a>
+        <a href="dashboard.html" class="nav-link">📊 Dashboard</a>
+      </nav>
+
+      <!-- Ações Principais -->
+      <div class="header-actions">
+        <button id="btn-nova-coluna" class="btn btn-secondary">
+          <span class="icon">+</span> Nova Coluna
+        </button>
+        <button id="btn-nova-tarefa" class="btn btn-primary">
+          <span class="icon">+</span> Nova Tarefa
+        </button>
+      </div>
+    </div>
+
+    <!-- Barra de Filtros e Indicadores Rápidos -->
+    <div class="toolbar-bar">
+      <!-- Filtro por Categoria -->
+      <div class="filter-group">
+        <label for="filter-category">Filtrar por Categoria:</label>
+        <select id="filter-category" class="select-filter">
+          <option value="todas">Todas as Categorias</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Estudos">Estudos</option>
+          <option value="Pessoal">Pessoal</option>
+          <option value="Projetos">Projetos</option>
+          <option value="Geral">Geral</option>
+        </select>
+      </div>
+
+      <!-- Indicadores Rápidos -->
+      <div class="stats-bar">
+        <div class="stat-item">Total: <span id="stat-total" class="stat-value">0</span></div>
+        <div class="stat-item">A Fazer: <span id="stat-todo" class="stat-value">0</span></div>
+        <div class="stat-item">Em Execução: <span id="stat-progress" class="stat-value">0</span></div>
+        <div class="stat-item">Finalizadas: <span id="stat-done" class="stat-value">0</span></div>
+        <div class="stat-item stat-alert">Atrasadas: <span id="stat-overdue" class="stat-value">0</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Área dos Quadros Kanban (Gerados Dinamicamente pelo JS) -->
+  <main class="board-container" id="board-container">
+    <!-- As colunas fixas e personalizadas serão renderizadas dinamicamente aqui -->
+  </main>
+
+  <!-- Modal: Cadastro e Edição de Tarefas -->
+  <div id="modal-task" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">Nova Tarefa</h3>
+        <button type="button" class="btn-close" id="modal-btn-close">&times;</button>
+      </div>
+
+      <form id="form-task">
+        <input type="hidden" id="task-id">
+
+        <div class="form-group">
+          <label for="task-title">Título <span class="required">*</span></label>
+          <input type="text" id="task-title" placeholder="Ex: Estudar conceitos do Antigravity" required>
+        </div>
+
+        <div class="form-group">
+          <label for="task-desc">Descrição</label>
+          <textarea id="task-desc" rows="3" placeholder="Detalhes opcionais da tarefa..."></textarea>
+        </div>
+
+        <!-- Nova Funcionalidade: Categorias -->
+        <div class="form-group">
+          <label for="task-category">Categoria <span class="required">*</span></label>
+          <select id="task-category" required>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Estudos">Estudos</option>
+            <option value="Pessoal">Pessoal</option>
+            <option value="Projetos">Projetos</option>
+            <option value="Geral">Geral</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="task-deadline">Data Limite (Prazo) <span class="required">*</span></label>
+          <input type="date" id="task-deadline" required>
+        </div>
+
+        <div class="form-group" id="group-task-status">
+          <label for="task-status">Coluna Inicial</label>
+          <select id="task-status">
+            <!-- Opções populadas dinamicamente com as colunas disponíveis -->
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="modal-btn-cancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar Tarefa</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Criação de Nova Coluna Personalizada -->
+  <div id="modal-column" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Criar Nova Coluna</h3>
+        <button type="button" class="btn-close" id="column-btn-close">&times;</button>
+      </div>
+
+      <form id="form-column">
+        <div class="form-group">
+          <label for="column-name">Nome da Coluna <span class="required">*</span></label>
+          <input type="text" id="column-name" placeholder="Ex: Em Revisão, Impedimentos, Backlog..." required>
+        </div>
+
+        <p class="modal-description">
+          As 3 colunas base (<strong>A Fazer</strong>, <strong>Em Execução</strong> e <strong>Finalizado</strong>) são mantidas fixas. Sua nova coluna será adicionada ao fluxo de trabalho.
+        </p>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="column-btn-cancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Adicionar Coluna</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Justificativa Obrigatória para Tarefa Vencida -->
+  <div id="modal-overdue" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card modal-card-alert">
+      <div class="modal-header">
+        <h3>Finalizar Tarefa Vencida</h3>
+      </div>
+      
+      <p class="modal-description">
+        Esta tarefa ultrapassou o prazo original. Para finalizá-la, é <strong>obrigatório</strong> informar uma nota/justificativa do motivo do atraso.
+      </p>
+
+      <form id="form-overdue">
+        <input type="hidden" id="overdue-task-id">
+
+        <div class="form-group">
+          <label for="overdue-note">Justificativa do Atraso <span class="required">*</span></label>
+          <textarea id="overdue-note" rows="3" placeholder="Explique brevemente o motivo da conclusão após o prazo..." required></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="overdue-btn-cancel">Cancelar</button>
+          <button type="submit" class="btn btn-warning">Confirmar Finalização</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Notificações Flutuantes (Toast) -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Script da Aplicação -->
+  <script src="app.js"></script>
+</body>
+</html>

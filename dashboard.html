@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Quadro Kanban</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Fonte Google Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Cabeçalho Principal com Navegação -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <h1>Quadro Kanban</h1>
+        <p class="subtitle">Visão analítica de desempenho, prazos e categorias</p>
+      </div>
+
+      <!-- Navegação Entre Páginas -->
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">📋 Quadro</a>
+        <a href="dashboard.html" class="nav-link active">📊 Dashboard</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-primary">
+          Ir para o Quadro
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal do Dashboard -->
+  <main class="dashboard-container">
+
+    <!-- 1. Grid de Indicadores Principais -->
+    <section class="metrics-grid">
+      
+      <!-- Tarefas Concluídas -->
+      <div class="metric-card card-done">
+        <span class="metric-card-title">Tarefas Concluídas</span>
+        <div class="metric-card-value" id="dash-done">0</div>
+        <span class="metric-card-desc">Total de tarefas finalizadas</span>
+      </div>
+
+      <!-- Tarefas em Execução -->
+      <div class="metric-card card-progress">
+        <span class="metric-card-title">Tarefas em Execução</span>
+        <div class="metric-card-value" id="dash-progress">0</div>
+        <span class="metric-card-desc">Atualmente em andamento</span>
+      </div>
+
+      <!-- Tarefas Pendentes -->
+      <div class="metric-card card-pending">
+        <span class="metric-card-title">Tarefas Pendentes</span>
+        <div class="metric-card-value" id="dash-pending">0</div>
+        <span class="metric-card-desc">Aguardando ou em fluxo de trabalho</span>
+      </div>
+
+      <!-- Tarefas Concluídas Fora do Prazo -->
+      <div class="metric-card card-overdue-finished">
+        <span class="metric-card-title">Concluídas Fora do Prazo</span>
+        <div class="metric-card-value" id="dash-overdue-finished">0</div>
+        <span class="metric-card-desc">Finalizadas com justificativa de atraso</span>
+      </div>
+
+    </section>
+
+    <!-- 2. Gráfico de Tarefas por Categoria -->
+    <section class="chart-card">
+      <div class="chart-header">
+        <div>
+          <h3>Tarefas por Categoria</h3>
+          <p class="subtitle">Distribuição e proporção das demandas cadastradas</p>
+        </div>
+        <span class="badge-count" id="total-categories-count">0 Categorias</span>
+      </div>
+
+      <!-- Barras de Distribuição Renderizadas via JS -->
+      <div class="chart-bars-wrapper" id="chart-bars-container">
+        <!-- Inserido dinamicamente -->
+      </div>
+    </section>
+
+    <!-- 3. Tabela Detalhada com Status das Tarefas -->
+    <section class="details-table-card">
+      <div class="chart-header" style="margin-bottom: 1rem;">
+        <h3>Detalhamento das Tarefas</h3>
+        <p class="subtitle">Lista consolidada para auditoria de prazos e categorias</p>
+      </div>
+
+      <table class="table-custom">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Categoria</th>
+            <th>Coluna Atual</th>
+            <th>Prazo</th>
+            <th>Situação / Entrega</th>
+          </tr>
+        </thead>
+        <tbody id="table-tasks-body">
+          <!-- Inserido dinamicamente -->
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- Script do Dashboard -->
+  <script src="dashboard.js"></script>
+</body>
+</html>
+
