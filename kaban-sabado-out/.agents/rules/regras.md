@@ -1,0 +1,5 @@
+- Responder somente em PT-BR  
+- Não executar comandos via termina, para qualquer teste, ou necessidade de execução, deve-se pedir a mim para executar e apenas gerar a instução com os comandos.
+- Comente os codigos de forma clara e objetiva
+- Priorizar as soluções limpas que sejam faceis de Entender e Manter
+- Utilizar stacks simple, priorize : HTML, CSS E JS
